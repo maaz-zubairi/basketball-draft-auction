@@ -11,21 +11,20 @@ import logo from "./assets/lob.jpg"; // Import the logo
 
 function App() {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <div className="App">
         {/* Navigation Menu */}
         <nav className="navbar">
-  <ul className="nav-links">
-    <li><a href="/home">Home</a></li>
-    <li><a href="/auction">Auction</a></li>
-    <li><a href="/captains">Captains</a></li>
-    <li><a href="/player-pool">Player Pool</a></li>
-    <li><a href="/draft-master">Draft Master</a></li>
-  </ul>
-  <h1 className="navbar-title">RBL AUCTION</h1>
-  <img src={logo} alt="Company Logo" className="logo" />
-</nav>
-
+          <ul className="nav-links">
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/auction">Auction</Link></li>
+            <li><Link to="/captains">Captains</Link></li>
+            <li><Link to="/player-pool">Player Pool</Link></li>
+            <li><Link to="/draft-master">Draft Master</Link></li>
+          </ul>
+          <h1 className="navbar-title">RBL AUCTION</h1>
+          <img src={logo} alt="Company Logo" className="logo" />
+        </nav>
 
         {/* Define Routes */}
         <Routes>
