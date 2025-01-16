@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 // Assign player to captain
 router.post("/:id/assign", async (req, res) => {
   const { id } = req.params; // Player ID
-  const { captainId } = req.body; // Captain ID
+  const { captainId, price } = req.body; // Captain ID and price
 
   try {
     // Find the player
@@ -30,31 +30,25 @@ router.post("/:id/assign", async (req, res) => {
     const captain = await Captain.findById(captainId);
     if (!captain) return res.status(404).json({ message: "Captain not found" });
 
-    // Ensure player is not already assigned
-    if (player.auctioned) {
-      return res
-        .status(400)
-        .json({ message: "Player is already assigned to a captain" });
-    }
-
     // Assign the player to the captain
     player.captain = captainId;
     player.auctioned = true; // Mark player as auctioned
     await player.save();
 
-    // Add the player details to the captain's players array
+    // Add the player details to the captain's players array with the price
     captain.players.push({
       name: player.name,
       position: player.position,
+      price // Add the price
     });
     await captain.save();
 
     res.status(200).json({ message: "Player assigned successfully", player });
   } catch (error) {
-    console.error("Error assigning player:", error);
     res.status(500).json({ message: "Error assigning player", error });
   }
 });
+
 
 // Add a new player
 router.post("/", async (req, res) => {

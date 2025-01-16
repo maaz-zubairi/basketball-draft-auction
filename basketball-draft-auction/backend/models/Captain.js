@@ -8,6 +8,7 @@ const captainSchema = new mongoose.Schema({
     {
       name: { type: String, required: true },
       position: { type: String, required: true },
+      price: { type: Number, required: true }, // Add the price field
     },
   ],
 });

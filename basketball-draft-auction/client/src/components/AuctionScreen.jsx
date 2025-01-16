@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/AuctionScreen.css";
+import logo from "../assets/lob.jpg"; // Import the logo
 
 const AuctionScreen = () => {
   const [players, setPlayers] = useState([]);
@@ -28,14 +29,12 @@ const AuctionScreen = () => {
 
   const initializeAuction = async (playerId) => {
     const selectedPlayer = players.find((player) => player._id === playerId);
-  
+
     try {
-      // Refetch captains to ensure their budgets are up to date
       const captainResponse = await fetch("http://localhost:5000/api/captains");
       const updatedCaptains = await captainResponse.json();
       setCaptains(updatedCaptains);
-  
-      // Initialize auction for the selected player
+
       setCurrentPlayer(selectedPlayer);
       setBids(
         updatedCaptains.map((captain) => ({
@@ -53,7 +52,6 @@ const AuctionScreen = () => {
       alert("Failed to start auction. Please try again.");
     }
   };
-  
 
   const placeBid = (captainId, amount) => {
     setBids((prevBids) =>
@@ -75,17 +73,20 @@ const AuctionScreen = () => {
       alert("No winning bid to finalize!");
       return;
     }
-
+  
     try {
       await fetch(
         `http://localhost:5000/api/players/${currentPlayer._id}/assign`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ captainId: winningBid.captainId }),
+          body: JSON.stringify({
+            captainId: winningBid.captainId,
+            price: winningBid.bid, // Include the price in the request
+          }),
         }
       );
-
+  
       await fetch(
         `http://localhost:5000/api/captains/${winningBid.captainId}/deduct-budget`,
         {
@@ -94,12 +95,12 @@ const AuctionScreen = () => {
           body: JSON.stringify({ amount: winningBid.bid }),
         }
       );
-
+  
       setLogs((prevLogs) => [
         ...prevLogs,
         `Player ${currentPlayer.name} assigned to Captain ${winningBid.captain} for $${winningBid.bid}`,
       ]);
-
+  
       setPlayers(players.filter((player) => player._id !== currentPlayer._id));
       setCurrentPlayer(null);
       setWinningBid(null);
@@ -108,6 +109,7 @@ const AuctionScreen = () => {
       alert("Failed to finalize auction. Please try again.");
     }
   };
+  
 
   useEffect(() => {
     fetchAuctionData();
@@ -122,88 +124,95 @@ const AuctionScreen = () => {
   }, [bids]);
 
   return (
-    <div className="auction-container">
-      {currentPlayer ? (
-        <>
-          <div className="auction-player">
-            <h1 className="player-name">{currentPlayer.name}</h1>
-            <p className="player-details">
-              Position: {currentPlayer.position} | Starting Price: $
-              {currentPlayer.startingPrice}
-            </p>
-          </div>
+    <div>
+      <nav className="navbar">
+        <img src={logo} alt="Company Logo" className="logo" />
+        <h1>RBL AUCTION</h1>
+      </nav>
 
-          <div className="captains-grid">
-            {bids.map((bid) => (
-              <div key={bid.captainId} className="captain-card">
-                <h3>{bid.captain}</h3>
-                <p>
-                  Budget: $
-                  {captains.find((cap) => cap._id === bid.captainId)?.budget}
-                </p>
-                <input
-                  type="number"
-                  className="bid-input"
-                  min="0"
-                  max={
-                    captains.find((cap) => cap._id === bid.captainId)?.budget
-                  }
-                  value={bid.bid}
-                  onChange={(e) =>
-                    placeBid(bid.captainId, parseInt(e.target.value, 10) || 0)
-                  }
-                />
-                <button
-                  onClick={() => submitBid(bid.captainId)}
-                  className="bid-button"
-                >
-                  Place Bid
-                </button>
-              </div>
-            ))}
-          </div>
+      <div className="auction-container">
+        {currentPlayer ? (
+          <>
+            <div className="auction-player">
+              <h1 className="player-name">{currentPlayer.name}</h1>
+              <p className="player-details">
+                Position: {currentPlayer.position} | Starting Price: $
+                {currentPlayer.startingPrice}
+              </p>
+            </div>
 
-          <div className="auction-controls">
-            <p>
-              Current Winning Bid: ${winningBid?.bid || "None"} by{" "}
-              {winningBid?.captain || "No Captain"}
-            </p>
-            <button onClick={finalizeAuction} className="finalize-button">
-              Finalize Auction
+            <div className="captains-grid">
+              {bids.map((bid) => (
+                <div key={bid.captainId} className="captain-card">
+                  <h3>{bid.captain}</h3>
+                  <p>
+                    Budget: $
+                    {captains.find((cap) => cap._id === bid.captainId)?.budget}
+                  </p>
+                  <input
+                    type="number"
+                    className="bid-input"
+                    min="0"
+                    max={
+                      captains.find((cap) => cap._id === bid.captainId)?.budget
+                    }
+                    value={bid.bid}
+                    onChange={(e) =>
+                      placeBid(bid.captainId, parseInt(e.target.value, 10) || 0)
+                    }
+                  />
+                  <button
+                    onClick={() => submitBid(bid.captainId)}
+                    className="bid-button"
+                  >
+                    Place Bid
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <div className="auction-controls">
+              <p>
+                Current Winning Bid: ${winningBid?.bid || "None"} by{" "}
+                {winningBid?.captain || "No Captain"}
+              </p>
+              <button onClick={finalizeAuction} className="finalize-button">
+                Finalize Auction
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="auction-player-selection">
+            <h2>Select a Player to Auction</h2>
+            <select
+              value={selectedPlayerId}
+              onChange={(e) => setSelectedPlayerId(e.target.value)}
+            >
+              <option value="">Select Player</option>
+              {players.map((player) => (
+                <option key={player._id} value={player._id}>
+                  {player.name} - {player.position}
+                </option>
+              ))}
+            </select>
+            <button
+              onClick={() => initializeAuction(selectedPlayerId)}
+              className="start-auction-button"
+              disabled={!selectedPlayerId}
+            >
+              Start Auction
             </button>
           </div>
-        </>
-      ) : (
-        <div className="auction-player-selection">
-          <h2>Select a Player to Auction</h2>
-          <select
-            value={selectedPlayerId}
-            onChange={(e) => setSelectedPlayerId(e.target.value)}
-          >
-            <option value="">Select Player</option>
-            {players.map((player) => (
-              <option key={player._id} value={player._id}>
-                {player.name} - {player.position}
-              </option>
-            ))}
-          </select>
-          <button
-            onClick={() => initializeAuction(selectedPlayerId)}
-            className="start-auction-button"
-            disabled={!selectedPlayerId}
-          >
-            Start Auction
-          </button>
-        </div>
-      )}
+        )}
 
-      <div className="auction-logs">
-        <h3>Auction Logs</h3>
-        <ul>
-          {logs.map((log, index) => (
-            <li key={index}>{log}</li>
-          ))}
-        </ul>
+        <div className="auction-logs">
+          <h3>Auction Logs</h3>
+          <ul>
+            {logs.map((log, index) => (
+              <li key={index}>{log}</li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

@@ -45,7 +45,7 @@ const Captains = () => {
                 {captain.players && captain.players.length > 0 ? (
                   captain.players.map((player, index) => (
                     <li key={index}>
-                      {player.name} - {player.position}
+                      {player.name} - {player.position} - {player.price}
                     </li>
                   ))
                 ) : (
