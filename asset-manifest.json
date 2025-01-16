@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/test/static/css/main.1b465c11.css",
-    "main.js": "/test/static/js/main.64641f7d.js",
-    "static/media/lob.jpg": "/test/static/media/lob.c6c25399c182525036e3.jpg",
-    "index.html": "/test/index.html",
-    "main.1b465c11.css.map": "/test/static/css/main.1b465c11.css.map",
-    "main.64641f7d.js.map": "/test/static/js/main.64641f7d.js.map"
+    "main.css": "/basketball-draft-auction/static/css/main.1b465c11.css",
+    "main.js": "/basketball-draft-auction/static/js/main.8fa719d5.js",
+    "static/media/lob.jpg": "/basketball-draft-auction/static/media/lob.c6c25399c182525036e3.jpg",
+    "index.html": "/basketball-draft-auction/index.html",
+    "main.1b465c11.css.map": "/basketball-draft-auction/static/css/main.1b465c11.css.map",
+    "main.8fa719d5.js.map": "/basketball-draft-auction/static/js/main.8fa719d5.js.map"
   },
   "entrypoints": [
     "static/css/main.1b465c11.css",
-    "static/js/main.64641f7d.js"
+    "static/js/main.8fa719d5.js"
   ]
 }
