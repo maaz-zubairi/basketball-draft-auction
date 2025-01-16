@@ -1,0 +1,15 @@
+.bid-card {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f4f4f4;
+    text-align: center;
+    margin: 10px 0;
+  }
+  
+  .bid-card.winning-bid {
+    background: #d4edda;
+    border-color: #c3e6cb;
+    font-weight: bold;
+  }
+  

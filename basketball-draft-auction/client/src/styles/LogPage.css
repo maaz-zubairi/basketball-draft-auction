@@ -1,0 +1,25 @@
+.log-container {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f4f4f4;
+  }
+  
+  .log-container h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  .log-container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .log-container li {
+    margin: 5px 0;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  

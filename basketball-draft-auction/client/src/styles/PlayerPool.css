@@ -1,0 +1,25 @@
+.player-pool-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .player-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .player-card {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f9f9f9;
+    text-align: center;
+    cursor: pointer;
+    transition: box-shadow 0.3s;
+  }
+  
+  .player-card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  

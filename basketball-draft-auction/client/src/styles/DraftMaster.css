@@ -1,0 +1,62 @@
+.draftmaster-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .player-pool {
+    margin-top: 20px;
+  }
+  
+  .player-pool h2 {
+    margin-bottom: 15px;
+  }
+  
+  .player-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .player-info {
+    font-weight: bold;
+    margin-right: 15px;
+  }
+  
+  .assign-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    opacity: 0.9;
+  }
+  
+  .remove-button {
+    background-color: #ff4d4d;
+    color: white;
+  }
+  
+  .assign-button {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  select {
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+  }
+  
