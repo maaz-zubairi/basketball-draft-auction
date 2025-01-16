@@ -57,4 +57,24 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// Update captain's budget or initialBudget
+router.put("/:id/budget", async (req, res) => {
+  const { id } = req.params;
+  const { budget, initialBudget } = req.body;
+
+  try {
+    const captain = await Captain.findById(id);
+    if (!captain) return res.status(404).json({ message: "Captain not found" });
+
+    if (budget !== undefined) captain.budget = budget;
+    if (initialBudget !== undefined) captain.initialBudget = initialBudget;
+
+    await captain.save();
+
+    res.status(200).json({ message: "Captain budget updated successfully", captain });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating captain budget", error });
+  }
+});
+
 module.exports = router;

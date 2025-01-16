@@ -73,7 +73,7 @@ const AuctionScreen = () => {
       alert("No winning bid to finalize!");
       return;
     }
-  
+
     try {
       await fetch(
         `http://localhost:5000/api/players/${currentPlayer._id}/assign`,
@@ -86,7 +86,7 @@ const AuctionScreen = () => {
           }),
         }
       );
-  
+
       await fetch(
         `http://localhost:5000/api/captains/${winningBid.captainId}/deduct-budget`,
         {
@@ -95,12 +95,12 @@ const AuctionScreen = () => {
           body: JSON.stringify({ amount: winningBid.bid }),
         }
       );
-  
+
       setLogs((prevLogs) => [
         ...prevLogs,
         `Player ${currentPlayer.name} assigned to Captain ${winningBid.captain} for $${winningBid.bid}`,
       ]);
-  
+
       setPlayers(players.filter((player) => player._id !== currentPlayer._id));
       setCurrentPlayer(null);
       setWinningBid(null);
@@ -109,7 +109,6 @@ const AuctionScreen = () => {
       alert("Failed to finalize auction. Please try again.");
     }
   };
-  
 
   useEffect(() => {
     fetchAuctionData();
@@ -124,11 +123,7 @@ const AuctionScreen = () => {
   }, [bids]);
 
   return (
-    <div>
-      <nav className="navbar">
-        <img src={logo} alt="Company Logo" className="logo" />
-        <h1>RBL AUCTION</h1>
-      </nav>
+    <div>   
 
       <div className="auction-container">
         {currentPlayer ? (

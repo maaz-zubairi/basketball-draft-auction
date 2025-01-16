@@ -9,14 +9,44 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #0047ab;
   padding: 10px 20px;
-  background-color: #0d47a1; /* Dark blue */
   color: white;
+  font-family: Arial, sans-serif;
 }
 
-.navbar .logo {
-  height: 50px;
+.navbar-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  flex: 1;
+  text-align: center;
 }
+
+.logo {
+  height: 60px;
+  width: auto;
+  margin-left: auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
 
 .navbar h1 {
   margin: 0;

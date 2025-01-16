@@ -35,26 +35,35 @@ const Captains = () => {
         <p>No captains found.</p>
       ) : (
         <div className="captains-list">
-          {captains.map((captain) => (
-            <div key={captain._id} className="captain-card">
-              <h2>
-                {captain.name} ({captain.team})
-              </h2>
-              <h3>Team:</h3>
-              <ul>
-                {captain.players && captain.players.length > 0 ? (
-                  captain.players.map((player, index) => (
-                    <li key={index}>
-                      {player.name} - {player.position} - {player.price}
-                    </li>
-                  ))
-                ) : (
-                  <li>No players in team yet.</li>
-                )}
-              </ul>
-              <p>Budget: ${captain.budget}</p>
-            </div>
-          ))}
+          {captains.map((captain) => {
+            const teamCost = captain.players.reduce(
+              (total, player) => total + (player.price || 0),
+              0
+            );
+            const remainingBudget = captain.initialBudget - teamCost;
+
+            return (
+              <div key={captain._id} className="captain-card">
+                <h2>
+                  {captain.name} ({captain.team})
+                </h2>
+                <h3>Team:</h3>
+                <ul>
+                  {captain.players && captain.players.length > 0 ? (
+                    captain.players.map((player, index) => (
+                      <li key={index}>
+                        {player.name} - {player.position} - ${player.price}
+                      </li>
+                    ))
+                  ) : (
+                    <li>No players in team yet.</li>
+                  )}
+                </ul>
+                <p>Remaining Budget: ${remainingBudget}</p>
+                <p>Total Team Cost: ${teamCost}</p>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

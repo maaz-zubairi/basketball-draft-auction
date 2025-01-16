@@ -25,18 +25,18 @@ const seedData = async () => {
     await Captain.deleteMany({});
     await Player.deleteMany({});
 
-    // Add captains
-    const captains = [
-      { name: "Shahzain", team: "Pakora", budget: 1000, players: [] },
-      { name: "Usman Khalid", team: "Knights", budget: 1000, players: [] },
-      { name: "Ammar", team: "Warriors", budget: 1000, players: [] },
-      { name: "Zain", team: "Titans", budget: 1000, players: [] },
-      { name: "Shehzar", team: "Gladiators", budget: 1000, players: [] },
-      { name: "Ramish", team: "Falcons", budget: 1000, players: [] },
-      { name: "Ans", team: "Avengers", budget: 1000, players: [] },
-      { name: "Mohsin", team: "Raptors", budget: 1000, players: [] },
-      { name: "TBD", team: "Hawks", budget: 1000, players: [] },
-    ];
+// Add captains
+const captains = [
+  { name: "Shahzain", team: "Pakora", budget: 1100, initialBudget: 1100, players: [] },
+  { name: "Usman Khalid", team: "Knights", budget: 1000, initialBudget: 1000, players: [] },
+  { name: "Ammar", team: "Warriors", budget: 1100, initialBudget: 1100, players: [] },
+  { name: "Zain", team: "Titans", budget: 1000, initialBudget: 1000, players: [] },
+  { name: "Shehzar", team: "Gladiators", budget: 1200, initialBudget: 1200, players: [] },
+  { name: "Ramish", team: "Falcons", budget: 1100, initialBudget: 1100, players: [] },
+  { name: "Ans", team: "Avengers", budget: 1000, initialBudget: 1000, players: [] },
+  { name: "Mohsin", team: "Raptors", budget: 1000, initialBudget: 1000, players: [] },
+  { name: "TBD", team: "Hawks", budget: 1100, initialBudget: 1100, players: [] },
+];
 
     const savedCaptains = await Captain.insertMany(captains);
 

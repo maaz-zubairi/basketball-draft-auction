@@ -75,4 +75,22 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// Update a player's price
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { startingPrice } = req.body;
+
+  try {
+    const player = await Player.findByIdAndUpdate(
+      id,
+      { startingPrice },
+      { new: true }
+    );
+    if (!player) return res.status(404).json({ message: "Player not found" });
+    res.status(200).json({ message: "Price updated successfully", player });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating price", error });
+  }
+});
+
 module.exports = router;
