@@ -26,21 +26,34 @@ const AuctionScreen = () => {
     }
   };
 
-  const initializeAuction = (playerId) => {
+  const initializeAuction = async (playerId) => {
     const selectedPlayer = players.find((player) => player._id === playerId);
-    setCurrentPlayer(selectedPlayer);
-    setBids(
-      captains.map((captain) => ({
-        captain: captain.name,
-        captainId: captain._id,
-        bid: 0,
-      }))
-    );
-    setLogs((prevLogs) => [
-      ...prevLogs,
-      `Auction started for ${selectedPlayer.name}`,
-    ]);
+  
+    try {
+      // Refetch captains to ensure their budgets are up to date
+      const captainResponse = await fetch("http://localhost:5000/api/captains");
+      const updatedCaptains = await captainResponse.json();
+      setCaptains(updatedCaptains);
+  
+      // Initialize auction for the selected player
+      setCurrentPlayer(selectedPlayer);
+      setBids(
+        updatedCaptains.map((captain) => ({
+          captain: captain.name,
+          captainId: captain._id,
+          bid: 0,
+        }))
+      );
+      setLogs((prevLogs) => [
+        ...prevLogs,
+        `Auction started for ${selectedPlayer.name}`,
+      ]);
+    } catch (error) {
+      console.error("Error initializing auction:", error);
+      alert("Failed to start auction. Please try again.");
+    }
   };
+  
 
   const placeBid = (captainId, amount) => {
     setBids((prevBids) =>
