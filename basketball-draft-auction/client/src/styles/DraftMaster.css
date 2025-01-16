@@ -60,7 +60,8 @@
 .player-info {
   font-weight: bold;
   flex: 1; /* Take up more space for player info */
-  text-align: justify;
+  text-align: center;
+  max-width:400px;
 }
 
 .price-edit input,
@@ -68,7 +69,7 @@
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  width: 120px; /* Ensures consistent width */
+  width: 180px; /* Ensures consistent width */
 }
 
 .price-edit button,
@@ -79,6 +80,7 @@
   border-radius: 15px;
   font-size: 14px;
   cursor: pointer;
+  max-width: 200px;
 }
 
 .price-edit button {

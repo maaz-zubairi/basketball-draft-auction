@@ -3,6 +3,7 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #e3f2fd; /* Light blue background */
+  text-align: center;
 }
 
 .navbar {
@@ -61,6 +62,11 @@ body {
   text-align: center;
   margin-bottom: 30px;
 }
+.auction-logs {
+  text-align: middle;
+  justify-items: middle;
+  margin-bottom: 30px;
+}
 
 .captains-grid {
   display: grid;
@@ -86,6 +92,7 @@ body {
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
+  
 }
 
 .finalize-button:hover,
